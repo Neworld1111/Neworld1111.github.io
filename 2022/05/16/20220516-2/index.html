@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hello Wolrd | Neworld1111</title>
+  <title>HDU5015 233Matrix | Neworld1111</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="欢迎来到我的博客！">
+  <meta name="description" content="2014 ACM&#x2F;ICPC Asia Regional Xi’an Online">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello Wolrd">
-<meta property="og:url" content="http://example.com/2022/05/11/20220511/index.html">
+<meta property="og:title" content="HDU5015 233Matrix">
+<meta property="og:url" content="http://example.com/2022/05/16/20220516-2/index.html">
 <meta property="og:site_name" content="Neworld1111">
-<meta property="og:description" content="欢迎来到我的博客！">
+<meta property="og:description" content="2014 ACM&#x2F;ICPC Asia Regional Xi’an Online">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-11T07:37:32.000Z">
-<meta property="article:modified_time" content="2022-05-11T07:38:36.966Z">
+<meta property="article:published_time" content="2022-05-15T17:24:24.000Z">
+<meta property="article:modified_time" content="2022-05-15T17:28:29.384Z">
 <meta property="article:author" content="Neworld1111">
-<meta property="article:tag" content="ME">
+<meta property="article:tag" content="矩阵">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Neworld1111" type="application/atom+xml">
@@ -216,14 +216,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-20220511" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-20220516-2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      Hello Wolrd
+      HDU5015 233Matrix
     </h1>
   
 
@@ -235,8 +235,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/05/11/20220511/" class="archive-article-date">
-        <time datetime="2022-05-11T07:37:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-11</time>
+<a href="/2022/05/16/20220516-2/" class="archive-article-date">
+        <time datetime="2022-05-15T17:24:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-16</time>
 </a>
 
   
@@ -249,7 +249,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">8字</span>
+      <span class="post-count">430字</span>
     </span>
   </span>
 
@@ -258,7 +258,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">1分</span>
+      <span class="post-count">2分</span>
     </span>
   </span>
 </div>
@@ -269,7 +269,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>欢迎来到我的博客！</p>
+    <p><a target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/search.php?field=problem&key=2014+ACM/ICPC+Asia+Regional+Xi&%23039;an+Online&source=1&searchmode=source">2014 ACM&#x2F;ICPC Asia Regional Xi’an Online</a></p>
+<span id="more"></span>
+
+<p>先有dp</p>
+<p>对于233、2333…..部分，构造了一个$g(n) &#x3D; g(n-1)*10+3$</p>
+<p>这样就变成了一个包含其他函数的递推函数</p>
+<p>添加到矩阵里表示即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXN 205</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD ((long long)10000007)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Matrix</span> &#123;</span><br><span class="line">    <span class="type">int</span> N,M;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> x[MAXN][MAXN];</span><br><span class="line">    <span class="built_in">Matrix</span>() &#123;&#125;</span><br><span class="line">    <span class="built_in">Matrix</span>(<span class="type">int</span> n,<span class="type">int</span> k) &#123;</span><br><span class="line">        N =  M  = n;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i)</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=M;++j)</span><br><span class="line">                <span class="keyword">if</span>(i==j) x[i][j] = k;</span><br><span class="line">                <span class="keyword">else</span> x[i][j] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; a;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Matrix <span class="title">multi</span><span class="params">(<span class="type">const</span> Matrix&amp; a,<span class="type">const</span> Matrix&amp; b)</span> </span>&#123;</span><br><span class="line">    Matrix c; c.N = a.N; c.M = b.M;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=c.N;++i)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=c.M;++j) &#123;</span><br><span class="line">            c.x[i][j] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">1</span>;k&lt;=a.M;++k) </span><br><span class="line">                c.x[i][j] = ((c.x[i][j]  +a.x[i][k]*b.x[k][j]%MOD) % MOD + MOD)%MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Matrix <span class="title">qMatrixPow</span><span class="params">(Matrix a,<span class="type">long</span> <span class="type">long</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="function">Matrix <span class="title">E</span><span class="params">(a.N,<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">while</span>(k) &#123;</span><br><span class="line">        <span class="keyword">if</span>(k&amp;<span class="number">1</span>) E = <span class="built_in">multi</span>(E,a);</span><br><span class="line">        a = <span class="built_in">multi</span>(a,a);</span><br><span class="line">        k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> E;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N,M;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">long</span> <span class="type">long</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Matrix E; E.N = N + <span class="number">2</span>; E.M = <span class="number">1</span>; E.x[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">233</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=N+<span class="number">1</span>;++i) &#123;</span><br><span class="line">        cin &gt;&gt; E.x[i][<span class="number">1</span>]; E.x[i][<span class="number">1</span>] += E.x[i<span class="number">-1</span>][<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    E.x[N+<span class="number">2</span>][<span class="number">1</span>] = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    --M;</span><br><span class="line"></span><br><span class="line">    Matrix magic; magic.N = magic.M = N+<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">memset</span>(magic.x,<span class="number">0</span>,<span class="built_in">sizeof</span>(magic.x));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N+<span class="number">2</span>;++i) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(i!=N+<span class="number">2</span>) magic.x[i][<span class="number">1</span>] = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">else</span> magic.x[i][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        magic.x[i][N+<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(i==N+<span class="number">2</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">2</span>;j&lt;=i;++j) magic.x[i][j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    magic = <span class="built_in">qMatrixPow</span>(magic,M);</span><br><span class="line">    E = <span class="built_in">multi</span>(magic,E);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> E.x[N+<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; N &gt;&gt; M) </span><br><span class="line">        cout &lt;&lt; <span class="built_in">solve</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     
 
@@ -284,7 +292,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2022/05/11/20220511/" title="Hello Wolrd" target="_blank">http://example.com/2022/05/11/20220511/</a>
+          <a href="http://example.com/2022/05/16/20220516-2/" title="HDU5015 233Matrix" target="_blank">http://example.com/2022/05/16/20220516-2/</a>
         </li>
         
         <li>
@@ -306,7 +314,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ME</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">矩阵</a>
         		</li>
       		
 		</ul>
@@ -362,7 +370,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/11/20220511/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/16/20220516-2/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -377,18 +385,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2022/05/14/20220514/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/05/16/20220516-3/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          CF1680
+          UVA11651 Krypton Number System
         
       </div>
     </a>
   
   
-    <a href="/2022/05/05/20220505-md/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Codeforces Round</div>
+    <a href="/2022/05/16/202205015/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">矩阵快速幂</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -677,6 +685,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">尺取法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">矩阵</a>
               </li>
             
             <div class="clearfix"></div>
