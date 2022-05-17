@@ -222,6 +222,112 @@
             
 
   
+    <article id="post-20220304-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/03/04/20220304-md/" target="_blank">CF817D Imbalanced Array</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/03/04/20220304-md/" class="archive-article-date">
+        <time datetime="2022-03-04T11:00:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-04</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>一开始想去研究单点贡献，但是没有想出来。</p>
+<p>原答案其实是求<br>$$<br>\sum_{l&#x3D;1}^{N}\sum_{r&#x3D;1}^{N} ( \max(ai)-\min(ai) )<br>$$</p>
+<p>这里做了一个很巧妙的事情，先把原答案表示出来，再分解答案<br>$$<br>\sum_{l&#x3D;1}^{N}\sum_{r&#x3D;1}^{N} \max(ai)-\sum_{l&#x3D;1}^{N}\sum_{r&#x3D;1}^{N}\min(ai)<br>$$</p>
+<p>这样我们就把每个区间的最大值和最小值给拆成两部分，互不干扰</p>
+<p>以最大值为例：</p>
+<p>那么我们就需要思考一下所有子区间的最大值之和</p>
+<p>考虑单点贡献，一个数字$a_i$能成为最大值，那么必然是存在一个区间$[l,r]$满足，$l\leq i \leq r$且区间内所有值都小于等于$a_i$，且$a_{l-1}&gt;a_i，a_{r+1}&gt;a_i$，我们就需要把区间端点尽可能的往外推，就可以找到答案贡献区间。</p>
+<p>对答案的贡献即为：$(i-l+1)*(r-i+1)*a_i$</p>
+<p>维护每个$a_i$的$l_i，r_i$，就是需要知道前面最后一个比$a_i$大的数，后面第一个比$a_i$大的数</p>
+<p>我们可以使用单调栈。</p>
+<p>当元素入栈时，pop掉的栈内元素即是碰到了一个比他们大的数（后面），可以设置r</p>
+<p>入栈完后，次栈顶即为最后第一个比新元素的大的数，可以设置l</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXN 1000005</span></span><br><span class="line"><span class="type">int</span> st[MAXN],top = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> l[MAXN],r[MAXN],a[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> N; cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(top&amp;&amp;a[st[top]]&lt;a[i]) &#123;</span><br><span class="line">            r[st[top]] = i<span class="number">-1</span>; --top;</span><br><span class="line">        &#125;</span><br><span class="line">        l[i] = st[top]+<span class="number">1</span>;</span><br><span class="line">        st[++top] = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(top) r[st[top--]] = N;</span><br><span class="line"></span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        ans += (<span class="type">long</span> <span class="type">long</span>)(i-l[i]+<span class="number">1</span>)*(r[i]-i+<span class="number">1</span>)*a[i];</span><br><span class="line">        l[i] = r[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        <span class="keyword">while</span>(top&amp;&amp;a[st[top]]&gt;a[i]) &#123;</span><br><span class="line">            r[st[top]] = i<span class="number">-1</span>; --top;</span><br><span class="line">        &#125;</span><br><span class="line">        l[i] = st[top]+<span class="number">1</span>;</span><br><span class="line">        st[++top] = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(top) r[st[top--]] = N;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        ans -= (<span class="type">long</span> <span class="type">long</span>)(i-l[i]+<span class="number">1</span>)*(r[i]-i+<span class="number">1</span>)*a[i];</span><br><span class="line">        l[i] = r[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>总结：</p>
+<p>比较明显的数据结构问题 ，可以尝试思考一下分治算法、单点贡献</p>
+<p>把答案先表示出来，尝试拆解成不同的部分，互不干扰</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单调栈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/03/04/20220304-md/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-20220220-1-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1121,94 +1227,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2022/01/30/20220130-md/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20220129-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/01/29/20220129-md/" target="_blank">Codeforces Round</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/01/29/20220129-md/" class="archive-article-date">
-        <time datetime="2022-01-29T12:26:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-29</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>难得上个分</p>
-    
-    <a class="article-more-a" href="/2022/01/29/20220129-md/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Codeforces</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2022/01/29/20220129-md/">展开全文 >></a>
     </p>
     
 
