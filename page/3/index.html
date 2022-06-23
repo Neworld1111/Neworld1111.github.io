@@ -222,6 +222,105 @@
             
 
   
+    <article id="post-20220501-md-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/05/01/20220501-md-md/" target="_blank">2022ACM四月周报#3</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/05/01/20220501-md-md/" class="archive-article-date">
+        <time datetime="2022-05-01T15:11:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-01</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<h3 id="刷题情况："><a href="#刷题情况：" class="headerlink" title="刷题情况："></a>刷题情况：</h3><ul>
+<li>把KMP和Manacher重新搞了一下</li>
+<li>学习exKMP</li>
+<li>kuangbin题单 以上部分</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/05/01/45a0d81758f96842.jpg"></p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/05/01/48ceb496da58818a.jpg"></p>
+<h3 id="比赛情况："><a href="#比赛情况：" class="headerlink" title="比赛情况："></a>比赛情况：</h3><ul>
+<li>打了一场cf</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/05/01/d03b98621970aaf8.jpg"></p>
+<p>题还没补完所以相应的博客还没写</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">RECORD</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/05/01/20220501-md-md/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-20220429-md-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1015,105 +1114,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2022/04/20/20220420-md/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20220419-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/04/19/20220419-md/" target="_blank">HDU1024 Max Sum Plus Plus</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/04/19/20220419-md/" class="archive-article-date">
-        <time datetime="2022-04-19T03:47:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <span id="more"></span>
-
-<p>这题数据范围给的不是很明确，但是$O(NM)$是对的</p>
-<p>定义状态$dp[i][j]$为以第$i$个数结尾，分成$j$组的答案</p>
-<p>也就是说第$i$个数是必选的，则$dp[i][j] &#x3D; \max(dp[i-1][j],dp[k][j-1]),0&lt;k&lt;i$</p>
-<p>前者表示把第$i$个数和$i-1$放到同一组里</p>
-<p>后者表示自己新起一组，那么就需要从之前$j-1$组的答案里找一个最大的转移过来</p>
-<p>但这样复杂度会炸的</p>
-<p>所以我们可以进行优化一下，我们发现求$k$其实计算的时候就可以保存下来了</p>
-<p>所以定义一个$maxx[j]$表示分成$j$组、出现过的最大答案<br>$$<br>dp[i][j] &#x3D; \max(dp[i-1][j],maxx[j-1])<br>$$<br>每次计算完$dp[i][j]$之后执行<code>maxx[j] = max(maxx[j],dp[i][j])</code>，进行更新</p>
-<p>自然最后的答案就是$maxx[M]$</p>
-<p>这题还可以用滚动数组优化一下，注意要倒着枚举$j$，防止重复选择同一个数字<br>$$<br>dp[j] &#x3D; \max(dp[j],maxx[j-1])<br>$$<br>还要注意的是初始化问题</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXN 1000005</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="type">long</span> dp[MAXN];</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> a[MAXN];</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> maxx[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N,M;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i]; maxx[i] = dp[i] = <span class="number">-214748364700000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    dp[<span class="number">1</span>] = a[<span class="number">1</span>]; maxx[<span class="number">1</span>] = a[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=N;++i) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,M);j&gt;=<span class="number">1</span>;--j) &#123;</span><br><span class="line">            dp[j] = <span class="built_in">max</span> ( dp[j] , maxx[j<span class="number">-1</span>] ) + a[i];</span><br><span class="line">            maxx[j] = <span class="built_in">max</span>(maxx[j],dp[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; maxx[M] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; M &gt;&gt; N) <span class="built_in">solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">dp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2022/04/19/20220419-md/">展开全文 >></a>
     </p>
     
 
