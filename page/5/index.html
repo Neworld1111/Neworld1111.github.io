@@ -222,6 +222,104 @@
             
 
   
+    <article id="post-20220425-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/04/25/20220425-md/" target="_blank">HDU3746 Cyclic Nacklace</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/04/25/20220425-md/" class="archive-article-date">
+        <time datetime="2022-04-25T10:12:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-25</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <span id="more"></span>
+
+<p>首先要认识到KMP的失配指针是一个等差数列</p>
+<p>也就是说，沿着失配指针往前走，必然是一个len-pre[len]长度的循环段</p>
+<p>那么只需要判断一下：</p>
+<ul>
+<li>pre[len] &#x3D; 0   说明没有循环，直接翻倍</li>
+<li>len%(len-pre[len])&#x3D;0 代表循环</li>
+<li>否则就说明会多出几个，多出的部分是len%(len-pre[len])，那么就需要补（len-pre[len]-len%(len-pre[len])</li>
+</ul>
+<p>比较奇怪的一点，用string会WA，没有DEBUG出来</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXN 1000005</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N,M;</span><br><span class="line"><span class="type">char</span> b[MAXN];</span><br><span class="line"><span class="type">int</span> pre[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; (b+<span class="number">1</span>);</span><br><span class="line">    M = <span class="built_in">strlen</span>(b+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    pre[<span class="number">1</span>] = <span class="number">0</span>; <span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;M;++i) &#123;</span><br><span class="line">        <span class="keyword">while</span>(b[i+<span class="number">1</span>]!=b[len+<span class="number">1</span>]&amp;&amp;len) len = pre[len];</span><br><span class="line">        <span class="keyword">if</span>(b[i+<span class="number">1</span>]==b[len+<span class="number">1</span>]) ++len;</span><br><span class="line">        pre[i+<span class="number">1</span>] = len;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> res = M - pre[M];</span><br><span class="line">    <span class="keyword">if</span>(pre[M]==<span class="number">0</span>) cout &lt;&lt; M &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(M%(M-pre[M])==<span class="number">0</span>) cout &lt;&lt; <span class="string">&quot;0\n&quot;</span>;</span><br><span class="line">    <span class="keyword">else</span> cout &lt;&lt; (M-pre[M])-(M%(M-pre[M])) &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> T; cin &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span>(T--) &#123;</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">KMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/04/25/20220425-md/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-20220424-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1050,101 +1148,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2022/04/14/20220414-md/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20220413-md-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/04/13/20220413-md-1/" target="_blank">HDU4578 Transformation</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/04/13/20220413-md-1/" class="archive-article-date">
-        <time datetime="2022-04-13T12:52:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <span id="more"></span>
-
-<p>码力题</p>
-<p>先看一下懒标记怎么处理，我们知道mul&gt;add</p>
-<p>显然区间赋值优先级最大，但是其实没有必要额外在引入一个懒标记</p>
-<p>区间赋值等价于乘0再加上这个数字就行</p>
-<p>记得取模</p>
-<p>计算懒标记的时候务必分开计算</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD 10007</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">tree</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> lson (rt&lt;&lt;1)</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> rson (rt&lt;&lt;1|1)</span></span><br><span class="line"></span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> seg[<span class="number">3</span>][MAXN&lt;&lt;<span class="number">2</span>],add[MAXN&lt;&lt;<span class="number">2</span>],mul[MAXN&lt;&lt;<span class="number">2</span>];</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">Pushup</span><span class="params">(<span class="type">int</span> rt)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;++i)</span><br><span class="line">            seg[i][rt] = (seg[i][lson] + seg[i][rson])%MOD;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">Build</span><span class="params">(<span class="type">int</span> rt,<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">        mul[rt] = <span class="number">1</span>; add[rt] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(l==r) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;++i) seg[i][rt] = <span class="number">0</span>;</span><br><span class="line">        	<span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> mid = (l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">Build</span>(lson,l,mid); <span class="built_in">Build</span>(rson,mid+<span class="number">1</span>,r);</span><br><span class="line">        <span class="built_in">Pushup</span>(rt); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">Pushdown</span><span class="params">(<span class="type">int</span> rt,<span class="type">int</span> lnum,<span class="type">int</span> rnum)</span> </span>&#123;</span><br><span class="line">        seg[<span class="number">2</span>][lson] = (mul[rt]*mul[rt]*mul[rt]*seg[<span class="number">2</span>][lson]);</span><br><span class="line">        seg[<span class="number">2</span>][rson] = (mul[rt]*mul[rt]*mul[rt]*seg[<span class="number">2</span>][rson]);</span><br><span class="line"></span><br><span class="line">        seg[<span class="number">1</span>][lson] = (mul[rt]*mul[rt]*seg[<span class="number">1</span>][lson]);</span><br><span class="line">        seg[<span class="number">1</span>][rson] = (mul[rt]*mul[rt]*seg[<span class="number">1</span>][rson]);</span><br><span class="line"></span><br><span class="line">        seg[<span class="number">0</span>][lson] = (mul[rt]*seg[<span class="number">0</span>][lson]);</span><br><span class="line">        seg[<span class="number">0</span>][rson] = (mul[rt]*seg[<span class="number">0</span>][rson]);</span><br><span class="line"></span><br><span class="line">        seg[<span class="number">2</span>][lson] += (<span class="type">long</span> <span class="type">long</span>)<span class="number">3</span>*seg[<span class="number">1</span>][lson]*add[rt] + (<span class="type">long</span> <span class="type">long</span>)<span class="number">3</span>*add[rt]*add[rt]*seg[<span class="number">0</span>][lson] + (<span class="type">long</span> <span class="type">long</span>)lnum*add[rt]*add[rt]*add[rt];</span><br><span class="line">        seg[<span class="number">2</span>][rson] += (<span class="type">long</span> <span class="type">long</span>)<span class="number">3</span>*seg[<span class="number">1</span>][rson]*add[rt] + (<span class="type">long</span> <span class="type">long</span>)<span class="number">3</span>*add[rt]*add[rt]*seg[<span class="number">0</span>][rson] + (<span class="type">long</span> <span class="type">long</span>)rnum*add[rt]*add[rt]*add[rt];</span><br><span class="line"></span><br><span class="line">        seg[<span class="number">1</span>][lson] += (<span class="type">long</span> <span class="type">long</span>)<span class="number">2</span>*add[rt]*seg[<span class="number">0</span>][lson] + (<span class="type">long</span> <span class="type">long</span>)lnum*add[rt]*add[rt];</span><br><span class="line">        seg[<span class="number">1</span>][rson] += (<span class="type">long</span> <span class="type">long</span>)<span class="number">2</span>*add[rt]*seg[<span class="number">0</span>][rson] + (<span class="type">long</span> <span class="type">long</span>)rnum*add[rt]*add[rt];</span><br><span class="line"></span><br><span class="line">        seg[<span class="number">0</span>][lson] += (add[rt]*lnum);</span><br><span class="line">        seg[<span class="number">0</span>][rson] += (add[rt]*rnum);</span><br><span class="line"></span><br><span class="line">        mul[lson] *= mul[rt]; </span><br><span class="line">        mul[rson] *= mul[rt];</span><br><span class="line">        add[lson] *= mul[rt]; add[rson] *= mul[rt];</span><br><span class="line">        add[lson] += add[rt]; add[rson] += add[rt];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;++i) seg[i][lson] %= MOD,seg[i][rson] %= MOD;</span><br><span class="line">        mul[lson] %= MOD; mul[rson] %= MOD; add[lson] %= MOD; add[rson] %= MOD;</span><br><span class="line">        mul[rt] = <span class="number">1</span>; add[rt] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">update_mul</span><span class="params">(<span class="type">int</span> L,<span class="type">int</span> R,<span class="type">long</span> <span class="type">long</span> x,<span class="type">int</span> rt,<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">    	<span class="keyword">if</span>(L&gt;r||R&lt;l) <span class="keyword">return</span>;</span><br><span class="line">    	<span class="keyword">if</span>(L&lt;=l&amp;&amp;R&gt;=r) &#123;</span><br><span class="line">            seg[<span class="number">2</span>][rt] = (seg[<span class="number">2</span>][rt]*x*x*x)%MOD;</span><br><span class="line">    		seg[<span class="number">1</span>][rt] = (seg[<span class="number">1</span>][rt]*x*x)%MOD;</span><br><span class="line">            seg[<span class="number">0</span>][rt] = (seg[<span class="number">0</span>][rt]*x)%MOD;</span><br><span class="line">    		mul[rt] *= x; add[rt] *= x;</span><br><span class="line">            mul[rt] %= MOD; add[rt] %= MOD;</span><br><span class="line">    		<span class="keyword">return</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="type">int</span> mid = (l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    	<span class="built_in">Pushdown</span>(rt,mid-l+<span class="number">1</span>,r-mid);</span><br><span class="line">    	<span class="keyword">if</span>(L&lt;=mid) <span class="built_in">update_mul</span>(L,R,x,lson,l,mid);</span><br><span class="line">    	<span class="keyword">if</span>(R&gt;mid) <span class="built_in">update_mul</span>(L,R,x,rson,mid+<span class="number">1</span>,r);</span><br><span class="line">    	<span class="built_in">Pushup</span>(rt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">update_add</span><span class="params">(<span class="type">int</span> L,<span class="type">int</span> R,<span class="type">long</span> <span class="type">long</span> x,<span class="type">int</span> rt,<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(L&gt;r||R&lt;l) <span class="keyword">return</span>;</span><br><span class="line">    	<span class="keyword">if</span>(L&lt;=l&amp;&amp;R&gt;=r) &#123;</span><br><span class="line">            seg[<span class="number">2</span>][rt] += (<span class="type">long</span> <span class="type">long</span>)<span class="number">3</span>*x*seg[<span class="number">1</span>][rt] + (<span class="type">long</span> <span class="type">long</span>)<span class="number">3</span>*x*x*seg[<span class="number">0</span>][rt] + (<span class="type">long</span> <span class="type">long</span>)(r-l+<span class="number">1</span>)*x*x*x;</span><br><span class="line">            seg[<span class="number">1</span>][rt] += (<span class="type">long</span> <span class="type">long</span>)<span class="number">2</span>*x*seg[<span class="number">0</span>][rt] + (<span class="type">long</span> <span class="type">long</span>)(r-l+<span class="number">1</span>)*x*x;</span><br><span class="line">            seg[<span class="number">0</span>][rt] = (seg[<span class="number">0</span>][rt]+x*(r-l+<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;++i) seg[i][rt] %= MOD;</span><br><span class="line">            add[rt] = (add[rt]+x)%MOD;</span><br><span class="line">    		<span class="keyword">return</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="type">int</span> mid = (l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    	<span class="built_in">Pushdown</span>(rt,mid-l+<span class="number">1</span>,r-mid);</span><br><span class="line">    	<span class="keyword">if</span>(L&lt;=mid) <span class="built_in">update_add</span>(L,R,x,lson,l,mid);</span><br><span class="line">    	<span class="keyword">if</span>(R&gt;mid) <span class="built_in">update_add</span>(L,R,x,rson,mid+<span class="number">1</span>,r);</span><br><span class="line">    	<span class="built_in">Pushup</span>(rt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">long</span> <span class="type">long</span> <span class="title">query</span><span class="params">(<span class="type">int</span> p,<span class="type">int</span> L,<span class="type">int</span> R,<span class="type">int</span> rt,<span class="type">int</span> l,<span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(L&gt;r||R&lt;l) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">if</span>(L&lt;=l&amp;&amp;R&gt;=r) <span class="keyword">return</span> seg[p][rt];</span><br><span class="line">    	<span class="type">int</span> mid = (l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    	<span class="built_in">Pushdown</span>(rt,mid-l+<span class="number">1</span>,r-mid);</span><br><span class="line">    	<span class="type">long</span> <span class="type">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">if</span>(L&lt;=mid) ans += <span class="built_in">query</span>(p,L,R,lson,l,mid);</span><br><span class="line">    	<span class="keyword">if</span>(R&gt;mid) ans += <span class="built_in">query</span>(p,L,R,rson,mid+<span class="number">1</span>,r);</span><br><span class="line">        <span class="built_in">Pushup</span>(rt);</span><br><span class="line">    	<span class="keyword">return</span> ans%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; tr;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N,M;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(N+M==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    tr.<span class="built_in">Build</span>(<span class="number">1</span>,<span class="number">1</span>,N);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=M;++i) &#123;</span><br><span class="line">        <span class="type">int</span> opt,x,y; </span><br><span class="line">        cin &gt;&gt; opt &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        <span class="keyword">if</span>(opt==<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> c; cin &gt;&gt; c;</span><br><span class="line">            tr.<span class="built_in">update_add</span>(x,y,c,<span class="number">1</span>,<span class="number">1</span>,N);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(opt==<span class="number">2</span>) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> c; cin &gt;&gt; c;</span><br><span class="line">            tr.<span class="built_in">update_mul</span>(x,y,c,<span class="number">1</span>,<span class="number">1</span>,N);            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(opt==<span class="number">3</span>) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> c; cin &gt;&gt; c;</span><br><span class="line">            tr.<span class="built_in">update_mul</span>(x,y,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,N);</span><br><span class="line">            tr.<span class="built_in">update_add</span>(x,y,c,<span class="number">1</span>,<span class="number">1</span>,N);  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(opt==<span class="number">4</span>) &#123;</span><br><span class="line">            <span class="type">int</span> p; cin &gt;&gt; p;</span><br><span class="line">            cout &lt;&lt; tr.<span class="built_in">query</span>(p<span class="number">-1</span>,x,y,<span class="number">1</span>,<span class="number">1</span>,N) &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>); cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; N &gt;&gt; M) <span class="built_in">solve</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">线段树</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2022/04/13/20220413-md-1/">展开全文 >></a>
     </p>
     
 
